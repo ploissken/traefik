@@ -1,0 +1,32 @@
+defaultEntryPoints = ["http", "https"]
+
+[web]
+address = ":8080"
+  [web.auth.basic]
+  users = ["admin:$apr1$HIwcbIYc$9AJWW3aPGk0.kVerHRn/a1"]
+  [entryPoints]
+  [entryPoints.http]
+  address = ":80"
+    [entryPoints.http.redirect]
+      entryPoint = "https"
+  [entryPoints.https]
+  address = ":443"
+    [entryPoints.https.tls]
+
+[acme]
+  email = "ploissken@gmail.com"
+  storage = "acme.json"
+  #uncomment for staging, comment for production
+  caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
+  entryPoint = "https"
+  onHostRule = true
+  onDemand = false
+    [acme.httpChallenge]
+    entryPoint = "http"
+
+[[acme.domains]]
+  main = "txto.com.br"
+  sans = ["www.txto.com.br", "traefik.txto.com.br"]
+[[acme.domains]]
+  main = "mercuryou.com"
+  sans = ["www.mercuryou.com", "api.mercuryou.com"]
