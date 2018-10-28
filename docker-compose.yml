@@ -7,9 +7,9 @@ networks:
 services:
   traefik-proxy:
     image: traefik # The official Traefik docker image
-    command: --api --docker # Enables the web UI and tells TrÃ¦fik to listen to docker
+    command: --api --docker # Enables the web UI and tells Træfik to listen to docker
     ports:
-      - "80:80"     # vUenus default
+      - "1080:1080"     # vUenus default
       - "8080:8080" # traefik default
       - "8000:8000" # mercurYou default
       - "443:443"
