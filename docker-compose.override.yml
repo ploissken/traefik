@@ -1,0 +1,12 @@
+version: '3'
+
+#windows demands set COMPOSE_CONVERT_WINDOWS_PATHS=1
+
+services:
+  traefik-proxy:
+    ports:
+      - "1080:1080" # vUenus default
+      - "8080:8080" # traefik default
+      - "8000:8000" # mercurYou default
+    labels:
+      - "traefik.frontend.rule=Host:traefik.localhost"

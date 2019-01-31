@@ -7,20 +7,14 @@ networks:
 services:
   traefik-proxy:
     image: traefik # The official Traefik docker image
-    command: --api --docker # Enables the web UI and tells Træfik to listen to docker
+    command: --api --docker # Enables the web UI and tells Traefik to listen to docker
     ports:
-      - "1080:1080"     # vUenus default
-      - "8080:8080" # traefik default
-      - "8000:8000" # mercurYou default
-      - "443:443"
+      - "80:80"
     networks:
       - traefik
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock # So that Traefik can listen to the Docker events
-      - $PWD/traefik.toml:/traefik.toml
-      - $PWD/acme.json:/acme.json #chmod 600
     labels:
       - "traefik.docker.network=traefik"
       - "traefik.backend=traefik-proxy"
-      - "traefik.frontend.rule=Host:traefik.txto.com.br, traefik.mercuryou.com, monitor.localhost"
       - "traefik.port=8080"
