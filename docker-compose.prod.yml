@@ -1,0 +1,13 @@
+version: '3'
+
+# docker-compose -f docker-compose.yml -f docker-compose.prod.yml up
+
+services:
+  traefik-proxy:
+    volumes:
+      - $PWD/traefik.toml:/traefik.toml
+      - $PWD/acme.json:/acme.json
+    ports:
+      - "443:443"
+    labels:
+      - "traefik.frontend.rule=Host:traefik.mercuryou.com"
