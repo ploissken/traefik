@@ -8,5 +8,6 @@ services:
       - "1080:1080" # vUenus default
       - "8080:8080" # traefik default
       - "8000:8000" # mercurYou default
+      - "9000:9000" # public-audio
     labels:
       - "traefik.frontend.rule=Host:traefik.localhost"
