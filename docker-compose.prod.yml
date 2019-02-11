@@ -10,4 +10,4 @@ services:
     ports:
       - "443:443"
     labels:
-      - "traefik.frontend.rule=Host:traefik.mercuryou.com,treafik.txto.com.br"
+      - "traefik.frontend.rule=Host:traefik.mercuryou.com,traefik.txto.com.br"
