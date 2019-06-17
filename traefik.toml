@@ -26,7 +26,7 @@ address = ":8080"
 
 [[acme.domains]]
   main = "txto.com.br"
-  sans = ["www.txto.com.br", "traefik.txto.com.br", "posterest.txto.com.br"]
+  sans = ["www.txto.com.br", "traefik.txto.com.br", "posterest.txto.com.br", "pa.txto.com.br"]
 [[acme.domains]]
   main = "mercuryou.com"
   sans = ["www.mercuryou.com", "api.mercuryou.com"]
