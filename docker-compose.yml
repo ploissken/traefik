@@ -1,20 +1,20 @@
-version: '3'
-
-networks:
-  traefik:
-    external: true
-
 services:
-  traefik-proxy:
-    image: traefik # The official Traefik docker image
-    command: --api --docker # Enables the web UI and tells Traefik to listen to docker
+  traefik:
+    image: traefik:v3.0
+    command:
+      - --api.dashboard=true
+      - --providers.docker=true
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.myresolver.acme.tlschallenge=true
+      - --certificatesresolvers.myresolver.acme.email=ploissken@gmail.com
+      - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
     ports:
-      - "80:80"
-    networks:
-      - traefik
+      - "80:80"       # HTTP
+      - "443:443"     # HTTPS
+      - "8080:8080"   # Traefik dashboard
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock # So that Traefik can listen to the Docker events
-    labels:
-      - "traefik.docker.network=traefik"
-      - "traefik.backend=traefik-proxy"
-      - "traefik.port=8080"
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./letsencrypt:/letsencrypt
+    networks:
+      - web
