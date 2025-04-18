@@ -5,7 +5,6 @@ services:
     restart: unless-stopped
     command:
       - --api.dashboard=true
-      - --api.insecure=true
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false
       - --entrypoints.web.address=:80
@@ -13,6 +12,12 @@ services:
       - --certificatesresolvers.myresolver.acme.tlschallenge=true
       - --certificatesresolvers.myresolver.acme.email=ploissken@gmail.com
       - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.txto.com.br`)"
+      - "traefik.http.routers.traefik.entrypoints=websecure"
+      - "traefik.http.routers.traefik.tls.certresolver=myresolver"
+      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
     ports:
       - "80:80"       # HTTP
       - "443:443"     # HTTPS
