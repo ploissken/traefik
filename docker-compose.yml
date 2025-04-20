@@ -2,7 +2,7 @@ services:
   traefik:
     image: traefik:v3.0
     container_name: traefik
-    restart: unless-stopped
+    restart: always
     command:
       - --api.dashboard=true
       - --api.insecure=true
