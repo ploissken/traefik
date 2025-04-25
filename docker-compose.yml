@@ -13,21 +13,21 @@ services:
       - --entrypoints.web.http.redirections.entrypoint.to=websecure
       - --entryPoints.web.http.redirections.entrypoint.scheme=https
       - --entrypoints.websecure.address=:443
-      - --entrypoints.websecure.asDefault=true 
+      - --entrypoints.websecure.asDefault=true
       - --entrypoints.websecure.http.tls.certresolver=myresolver
       - --certificatesresolvers.myresolver.acme.tlschallenge=true
-      - --certificatesresolvers.myresolver.acme.email=ploissken@gmail.com
+      - --certificatesresolvers.myresolver.acme.email=${EMAIL}
       - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.traefik.rule=Host(`traefik.txto.com.br`)"
+      - "traefik.http.routers.traefik.rule=Host(`${DASHBOARD_HOST}`)"
       - "traefik.http.routers.traefik.entrypoints=websecure"
       - "traefik.http.routers.traefik.tls.certresolver=myresolver"
       - "traefik.http.services.traefik.loadbalancer.server.port=8080"
     ports:
-      - "80:80"       # HTTP
-      - "443:443"     # HTTPS
-      - "8080:8080"   # Traefik dashboard
+      - "80:80" # HTTP
+      - "443:443" # HTTPS
+      - "8080:8080" # Traefik dashboard
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./letsencrypt:/letsencrypt
